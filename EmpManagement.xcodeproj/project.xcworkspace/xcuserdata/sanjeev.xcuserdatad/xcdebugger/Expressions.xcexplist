@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "EmployeeDescViewController.viewDidLoad():EmployeeDescViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDetails.shared.userarray[position].rate">
+            </PersistentString>
+            <PersistentString
+               value = "UserDetails.shared.userarray[position]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoustmerlistViewController.tableView(_:didSelectRowAt:):CoustmerlistViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "optionSelect">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AddBillViewController.addemployee(_:):AddBillViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDetails.shared.userarray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "VehiclelistViewController.tableView(_:cellForRowAt:):VehiclelistViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDetails.shared.userarray[position].Vehicle[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "UserDetails.shared.userarray">
+            </PersistentString>
+            <PersistentString
+               value = "UserDetails.shared.userarray[position].Vehicle[indexPath.row].vehicletype">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.but_login(_:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "edt_admin_username.text == username &amp;&amp; edt_admin_password.text == password">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "EmployeeDescViewController.getAgeFromDOF(date:):EmployeeDescViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dateFormatter1.date(from: date)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
