@@ -43,20 +43,33 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
     var veharray : [Vehicledata] = []
     @IBOutlet var but_saveemp: UIButton!
     var seglect : Int = 0
+    var encrptedimage : String = ""
+    
+    var imageupload : Bool = true
     var imagePicker = UIImagePickerController()
+    
+     @IBOutlet var txtcity: UILabel!
+     @IBOutlet var txtstate: UILabel!
+     @IBOutlet var txtlat: UILabel!
+     @IBOutlet var txtlong: UILabel!
+     @IBOutlet var butpickloc: UIButton!
     
     @IBAction func picklocation(_ sender: Any) {
         
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        obj.addbillcontroller = self
         self.navigationController?.pushViewController(obj, animated: true)
-        
     }
     
     @IBAction func addemployee(_ sender: Any) {
         
-        if(edt_empname.text == "")
+                     if(imageupload)
                      {
-                         showdialog(data: "please enter employee name")
+                           showdialog(data: "upload photo")
+                     }
+                     else if(edt_empname.text == "")
+                     {
+                           showdialog(data: "please enter employee name")
                      }
                      else if(edt_empid.text == "")
                      {
@@ -66,9 +79,9 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                      {
                            showdialog(data: "please enter date of birth")
                      }
-        else if(checktype(x: seglect))
+                     else if(txtcity.text == "Country")
                      {
-                           //showdialog(data: "please select year")
+                           showdialog(data: "please select location")
                      }
               else
               {
@@ -76,6 +89,11 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                  empobj.empname = edt_empname.text
                  empobj.empid = edt_empid.text
                  empobj.dateofbirth = edtDate.text
+                 empobj.country = txtcity.text
+                 empobj.city = txtstate.text
+                 empobj.latitude = txtlat.text
+                 empobj.longitude = txtlong.text
+                 empobj.imagedata = encrptedimage
   
                                                    if(seglect == 0)
                                                    {
@@ -117,7 +135,7 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
         override func viewDidLoad() {
             super.viewDidLoad()
             
-//            let imagegesture = UITapGestureRecognizer()
+//                   let imagegesture = UITapGestureRecognizer()
 //                   imagegesture.numberOfTapsRequired = 1
 //                   imagegesture.addTarget(self, action: #selector(imageaction))
             
@@ -129,6 +147,9 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
             
               self.but_saveemp.layer.cornerRadius = 10
               self.but_saveemp.clipsToBounds = true
+            
+              self.butpickloc.layer.cornerRadius = 10
+              self.butpickloc.clipsToBounds = true
             
                          inter_View.isHidden = false
                          partime_view_ptc.isHidden = true
@@ -180,7 +201,7 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
            //If you dont want to edit the photo then you can set allowsEditing to false
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
-           self.present(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)
        }
     
         @objc func mapTypeChanged(segControl: UISegmentedControl) {
@@ -198,24 +219,21 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                                          partTime_view_ptf.isHidden = true
                                          fulltime_view.isHidden = false
                 
-                seglect = 1
+                                         seglect = 1
                 
             }else if segControl.selectedSegmentIndex == 2{
-           inter_View.isHidden = true
+                                   inter_View.isHidden = true
                                    partime_view_ptc.isHidden = true
                                    partTime_view_ptf.isHidden = false
                                    fulltime_view.isHidden = true
-                
-                seglect = 2
+                                   seglect = 2
                 
             }else if segControl.selectedSegmentIndex == 3{
-                    inter_View.isHidden = true
+                                   inter_View.isHidden = true
                                    partime_view_ptc.isHidden = false
                                    partTime_view_ptf.isHidden = true
                                    fulltime_view.isHidden = true
-                
-                seglect = 3
-                
+                                   seglect = 3
             }
         }
         
@@ -229,7 +247,6 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
         func showdialog(data : String )  {
             
                     let alert = UIAlertController(title: "Alert", message: data, preferredStyle: .alert)
-
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
 //                    alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: { action in
 //                        //run your function here
@@ -240,9 +257,7 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
 //                        }
 //
 //                    }))
-
                     self.present(alert, animated: true)
-            
         }
         
         func GoToNewShoot()
@@ -265,8 +280,6 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
              self.pickUpDate(self.edtDate)
             // self.pickUpDatee(self.label)
          }
-         
-        
          
          //MARK:- Function of datePicker
          func pickUpDate(_ textField : UITextField){
@@ -312,7 +325,7 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
 
                 var checkreturn : Bool = false
                 
-                if(x == 0)
+                                    if(x == 0)
                                     {
                                         checkreturn = interncheck ()
                                     }
@@ -328,10 +341,7 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                                     {
                                            checkreturn = ptccheck ()
                                     }
-                
-                return checkreturn
-                
-                
+                                    return checkreturn
         }
         
         func interncheck ()->Bool
@@ -356,10 +366,10 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                    var checkreturn : Bool = false
                    
                  if(edt_fulltime_salary.text == "")
-                                                      {
-                                                            showdialog(data: "please enter salary")
-                                                        checkreturn = true
-                                                      }
+                                       {
+                                           showdialog(data: "please enter salary")
+                                           checkreturn = true
+                                       }
                   else if(edt_fulltime_bonus.text == "")
                                        {
                                            showdialog(data: "please enter bonus")
@@ -368,10 +378,10 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                                        else if(edt_fulltime_salary.text == "")
                                        {
                                              showdialog(data: "please enter salary")
-                                         checkreturn = true
+                                            checkreturn = true
                                        }
                                        else {
-                     checkreturn = false
+                                            checkreturn = false
                                        }
                 
                 return checkreturn
@@ -395,17 +405,16 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                                              showdialog(data: "enter fixed amount")
                                        }
                                         else {
-                                                          checkreturn = false
-                                                                            }
+                                             checkreturn = false
+                                        }
                                                      
-                                                     return checkreturn
-               }
+                                        return checkreturn
+                                        }
 
         
         func ptccheck ()->Bool
                {
                    var checkreturn : Bool = false
-                   
                    if(edt_ptc_rate.text == "")
                                        {
                                            showdialog(data: "please enter rate")
@@ -419,23 +428,40 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                                              showdialog(data: "please enter commission percentage")
                                        }
                                         else {
-                                                          checkreturn = false
-                                                                            }
+                                        checkreturn = false
+                                        }
                                                      
-                                                     return checkreturn
-               }
+                                        return checkreturn
+                                        }
         
         
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
             let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
             profileimage.image = image
             picker.dismiss(animated: true, completion: nil)
+            imageupload = false
+                
+                let imageData: Data? = image.jpegData(compressionQuality: 0.4)
+                let imageStr = imageData?.base64EncodedString(options: .lineLength64Characters) ?? ""
+                encrptedimage = "\(imageStr)"
+                var imageDataafter = Data(base64Encoded: encrptedimage)
+              //let imageafter = base64ToImage(encrptedimage: String)
+              //  profileimage.image = UIImage(data: imageDataafter!)
+                print("\(imageStr)")
         }
         
-       
+        func userlocation(countrylabel: String, lattlabel: String , longglabel: String, state: String)
+        {
+            print("Data received: \(countrylabel)")
+            txtcity.text = countrylabel
+            txtstate.text = state
+            txtlat.text = lattlabel
+            txtlong.text = longglabel
+        }
         
-       }
-
-        
-
+        func base64ToImage(encrptedimage: String) -> UIImage? {
+               guard let imageData = Data(base64Encoded: encrptedimage) else { return nil }
+               return UIImage(data: imageData)
+           }
+}

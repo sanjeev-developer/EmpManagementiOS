@@ -1,5 +1,4 @@
 //  MapViewController.swift
-//  EmpManagement
 //  Created by sanjeev gupta on 2020-01-22.
 //  Copyright © 2020 sanjeev gupta. All rights reserved.
 
@@ -16,6 +15,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
     @IBOutlet var zoomStepperOutlet: UIStepper!
     var transport = false
     @IBOutlet var mapView: MKMapView!
+    var addbillcontroller:AddBillViewController?
+    var latlabel = "";
+    var longlabel = "";
+    var country = "";
+    var state = "";
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,28 +37,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
         zoomStepperOutlet.minimumValue = -5
         zoomStepperOutlet.maximumValue = 5
         
-        
         selectbutton.layer.cornerRadius = 10.0
-                    selectbutton.layer.shadowColor = UIColor.gray.cgColor
-                    selectbutton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-                    selectbutton.layer.shadowRadius = 12.0
-                    selectbutton.layer.shadowOpacity = 0.7
+        selectbutton.layer.shadowColor = UIColor.gray.cgColor
+        selectbutton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        selectbutton.layer.shadowRadius = 12.0
+        selectbutton.layer.shadowOpacity = 0.7
         
         let gestureDoubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
         gestureDoubleTap.numberOfTapsRequired = 2
-                          mapView.addGestureRecognizer(gestureDoubleTap)
-
+        mapView.addGestureRecognizer(gestureDoubleTap)
     }
     
     
     @IBAction func selectlocation(_ sender: Any) {
         
         navigationController?.popViewController(animated: true)
+        addbillcontroller?.userlocation(countrylabel: country, lattlabel: latlabel , longglabel: longlabel, state:state)
     }
     
     
     @IBAction func backmap(_ sender: Any) {
-
         navigationController?.popViewController(animated: true)
     }
     
@@ -78,20 +80,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
                   }
        }
     
-    @IBAction func buttonNavigation(_ sender: UIButton) {
-        
-        let otherAlert = UIAlertController(title: "Transport Type", message: "Please choose one Transport Type.", preferredStyle: UIAlertController.Style.alert)
-
-              let walkingbutton = UIAlertAction(title: "Walking", style: UIAlertAction.Style.default, handler: walkingHandler)
-              
-              let autobutton = UIAlertAction(title: "Automobile", style: UIAlertAction.Style.default, handler: autoHandler)
-        
-                  // relate actions to controllers
-                  otherAlert.addAction(walkingbutton)
-                  otherAlert.addAction(autobutton)
-
-            present(otherAlert, animated: true, completion: nil)
-        }
         
         @objc func doubleTap(gestureRecognizer : UILongPressGestureRecognizer)
         {
@@ -101,7 +89,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
                 mapView.removeOverlays(mapView.overlays)
             }
             
-            
             //remove annotations
             let i = mapView.annotations.count
             if i != 0
@@ -109,14 +96,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
             let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
             mapView.removeAnnotations( annotationsToRemove )
             }
-            
-
-            
+        
             let touchPoint = gestureRecognizer.location(in: mapView)
             let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-            
             let annotation = MKPointAnnotation()
-           // annotation.title = "Latitude:\(coordinate.latitude)"
+            // annotation.title = "Latitude:\(coordinate.latitude)"
+            latlabel = "\(coordinate.latitude)"
+            longlabel = "\(coordinate.longitude)"
+           
             annotation.subtitle = "Latitude:\(coordinate.latitude) + Longitude:\(coordinate.longitude)"
             annotation.coordinate = coordinate
             destination2d = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -142,11 +129,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
                     
                     if placemark.subLocality != nil{
                         address = address + placemark.subLocality!  + "\n"
+                        self.state = "\(placemark.subLocality)"
                     }
                     
                     if placemark.subAdministrativeArea != nil{
                         annotation.title = placemark.subAdministrativeArea
-
                         address = address + placemark.subAdministrativeArea! + "\n"
                     }
                     
@@ -156,6 +143,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
                     
                     if placemark.country != nil{
                         address = address + placemark.country! + "\n"
+                        self.country = "\(placemark.country)"
                     }
                   
                     annotation.title = address
@@ -207,13 +195,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
             guard let unwrappedResponse = response else { return }
 
             let route = unwrappedResponse.routes[0]
-                
-                self.mapView.addOverlay(route.polyline)
-                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+            self.mapView.addOverlay(route.polyline)
+            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
     }
     }
-    
-    
     
     func walkingHandler(alert: UIAlertAction){
         

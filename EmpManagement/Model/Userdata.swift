@@ -25,6 +25,9 @@ class Userdata {
     var bonus: String!
     var fixedamount: String!
     var commissionpercent: String!
-   
-    
+    var country: String!
+    var city: String!
+    var latitude: String!
+    var longitude: String!
+    var imagedata: String!
 }
