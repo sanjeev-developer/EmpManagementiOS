@@ -58,17 +58,17 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
         self.img_user.layer.cornerRadius = img_user.bounds.width/2
 
         
-      
+      if(UserDetails.shared.userarray[position].imagedata != nil)
+      {
         
-       do {
-             if let decodedData = Data(base64Encoded: UserDetails.shared.userarray[position].imagedata, options: .ignoreUnknownCharacters) {
-                                                     let imagee = UIImage(data: decodedData)
-                                                     img_user.image = imagee
+        let decodedData = Data(base64Encoded: UserDetails.shared.userarray[position].imagedata, options: .ignoreUnknownCharacters)!
+           
+               
+               let imagee = UIImage(data: decodedData)
+               img_user.image = imagee
+           
         }
-        }
-        catch {
-            print(error)
-        }
+       
                  
             
         
