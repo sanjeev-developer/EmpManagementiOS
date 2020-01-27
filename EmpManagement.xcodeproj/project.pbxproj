@@ -24,7 +24,6 @@
 		AFECCF82237CFC250013D508 /* Userdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCF71237CFC250013D508 /* Userdata.swift */; };
 		AFECCF83237CFC250013D508 /* Billdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCF72237CFC250013D508 /* Billdata.swift */; };
 		AFECCF87237CFC250013D508 /* AddBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCF77237CFC250013D508 /* AddBillViewController.swift */; };
-		AFECCF88237CFC250013D508 /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCF78237CFC250013D508 /* BillListViewController.swift */; };
 		AFECCF89237CFC250013D508 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCF79237CFC250013D508 /* HomeViewController.swift */; };
 		AFECCF8B237CFC250013D508 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCF7B237CFC250013D508 /* WelcomeScreen.swift */; };
 		AFECCF8C237CFC250013D508 /* CoustmerlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCF7C237CFC250013D508 /* CoustmerlistViewController.swift */; };
@@ -53,7 +52,6 @@
 		AFECCF72237CFC250013D508 /* Billdata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Billdata.swift; sourceTree = "<group>"; };
 		AFECCF73237CFC250013D508 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFECCF77237CFC250013D508 /* AddBillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBillViewController.swift; sourceTree = "<group>"; };
-		AFECCF78237CFC250013D508 /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
 		AFECCF79237CFC250013D508 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AFECCF7B237CFC250013D508 /* WelcomeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
 		AFECCF7C237CFC250013D508 /* CoustmerlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoustmerlistViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				AFECCF77237CFC250013D508 /* AddBillViewController.swift */,
-				AFECCF78237CFC250013D508 /* BillListViewController.swift */,
 				AFECCF79237CFC250013D508 /* HomeViewController.swift */,
 				AFECCF7B237CFC250013D508 /* WelcomeScreen.swift */,
 				AFECCF7C237CFC250013D508 /* CoustmerlistViewController.swift */,
@@ -225,7 +222,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFECCF8C237CFC250013D508 /* CoustmerlistViewController.swift in Sources */,
-				AFECCF88237CFC250013D508 /* BillListViewController.swift in Sources */,
 				AFECCF7E237CFC250013D508 /* ViewController.swift in Sources */,
 				AFECCF8B237CFC250013D508 /* WelcomeScreen.swift in Sources */,
 				AFECCF7F237CFC250013D508 /* UserDetails.swift in Sources */,

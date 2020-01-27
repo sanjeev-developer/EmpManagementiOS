@@ -65,11 +65,7 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
                                       {
                                           cell.img_list.image = UIImage(named: "Audi")
                                       }
-                   
-        
-        
-        
-        return cell
+                   return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -92,10 +88,7 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
                }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
         self.present(alert, animated: true)
-        
-// Do any additional setup after loading the view.
     }
 
     @IBAction func but_back_clist(_ sender: Any) {
@@ -112,11 +105,11 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
     
     func movetoedit(data : Int)
       {
-          let obj = self.storyboard?.instantiateViewController(withIdentifier: "AddvehViewController") as! AddvehViewController
+        let obj = self.storyboard?.instantiateViewController(withIdentifier: "AddvehViewController") as! AddvehViewController
         obj.vehicleposition = data
         obj.userposition = position
         obj.purpose = "edit"
-          self.navigationController?.pushViewController(obj, animated: true)
+        self.navigationController?.pushViewController(obj, animated: true)
       }
     
     @IBAction func butmovetoadd(_ sender: Any) {
@@ -124,7 +117,7 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "AddvehViewController") as! AddvehViewController
         obj.userposition = position
         obj.purpose = "add"
-          self.navigationController?.pushViewController(obj, animated: true)
+        self.navigationController?.pushViewController(obj, animated: true)
     }
     
 }

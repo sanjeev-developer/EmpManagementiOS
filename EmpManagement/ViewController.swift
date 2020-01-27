@@ -42,6 +42,10 @@ class ViewController: UIViewController {
                           userdata.commissionpercent = "20"
                           userdata.schoolname = "new school"
                           userdata.bonus = "50"
+                        userdata.country = "Canada"
+                        userdata.city = "Toronto"
+                        
+                        
                         
                         var vehobj = Vehicledata()
                         vehobj.vehicletype = "Car"

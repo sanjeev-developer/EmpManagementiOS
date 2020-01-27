@@ -160,8 +160,8 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
             textFieldDidBeginEditing(edtDate)
             
             self.profileimage.layer.cornerRadius = profileimage.bounds.width/2
-            self.profileimage.layer.borderWidth = 1
-            self.profileimage.layer.borderColor = UIColor.lightGray.cgColor
+          //  self.profileimage.layer.borderWidth = 1
+           // self.profileimage.layer.borderColor = UIColor.lightGray.cgColor
                    
             
             }
@@ -438,17 +438,18 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
             func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
             let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
-            profileimage.image = image
+          //  profileimage.image = image
             picker.dismiss(animated: true, completion: nil)
             imageupload = false
                 
                 let imageData: Data? = image.jpegData(compressionQuality: 0.4)
-                let imageStr = imageData?.base64EncodedString(options: .lineLength64Characters) ?? ""
-                encrptedimage = "\(imageStr)"
-                var imageDataafter = Data(base64Encoded: encrptedimage)
-              //let imageafter = base64ToImage(encrptedimage: String)
-              //  profileimage.image = UIImage(data: imageDataafter!)
-                print("\(imageStr)")
+                encrptedimage = imageData?.base64EncodedString(options: .lineLength64Characters) ?? ""
+                print("\(encrptedimage)")
+                
+                if let decodedData = Data(base64Encoded: encrptedimage, options: .ignoreUnknownCharacters) {
+                     let imagee = UIImage(data: decodedData)
+                     profileimage.image = imagee
+                }
         }
         
         func userlocation(countrylabel: String, lattlabel: String , longglabel: String, state: String)
@@ -464,4 +465,13 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                guard let imageData = Data(base64Encoded: encrptedimage) else { return nil }
                return UIImage(data: imageData)
            }
+}
+
+extension String {
+    func base64ToImage() -> UIImage? {
+        if let url = URL(string: self),let data = try? Data(contentsOf: url),let image = UIImage(data: data) {
+            return image
+        }
+        return nil
+    }
 }

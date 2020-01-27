@@ -36,6 +36,10 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
     @IBOutlet var txt_salary_ft: UILabel!
     @IBOutlet var txt_bonus_ft: UILabel!
     
+    @IBOutlet var txt_country: UILabel!
+    @IBOutlet var txt_city: UILabel!
+    @IBOutlet var img_user: UIImageView!
+    
     @IBOutlet var view_intern: UIView!
     @IBOutlet var txt_schoolname: UILabel!
     @IBOutlet var txt_salary_intern: UILabel!
@@ -47,7 +51,26 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
         txt_empname.text =  UserDetails.shared.userarray[position].empname
         txt_empage.text =  UserDetails.shared.userarray[position].dateofbirth
         txt_emptype.text =  UserDetails.shared.userarray[position].type
+        txt_country.text =  UserDetails.shared.userarray[position].country
+        txt_city.text =  UserDetails.shared.userarray[position].city
        // txt_empage.text = String(getAgeFromDOF(date: UserDetails.shared.userarray[position].dateofbirth))
+        
+        self.img_user.layer.cornerRadius = img_user.bounds.width/2
+
+        
+      
+        
+       do {
+             if let decodedData = Data(base64Encoded: UserDetails.shared.userarray[position].imagedata, options: .ignoreUnknownCharacters) {
+                                                     let imagee = UIImage(data: decodedData)
+                                                     img_user.image = imagee
+        }
+        }
+        catch {
+            print(error)
+        }
+                 
+            
         
         if(UserDetails.shared.userarray[position].type == "Intern")
         {
@@ -59,7 +82,6 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
             var salary : String = UserDetails.shared.userarray[position].salary
             txt_salary_intern.text = "$ \(salary)"
             txt_total.text = "$ \(salary)"
-            
         }
         else if(UserDetails.shared.userarray[position].type == "FullTime")
         {
