@@ -510,17 +510,17 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                                                                     
                                                                      user.setValue("PartTimeFixed", forKeyPath: "type")
                                                                      user.setValue(edt_rate_ptf.text, forKeyPath: "rate")
-                                                                    user.setValue(edt_hourworked_ptf.text, forKey: "hourworked")
-                                                                    user.setValue(edt_partime_ptf.text, forKey: "fixedamount")
+                                                                     user.setValue(edt_hourworked_ptf.text, forKey: "hourworked")
+                                                                     user.setValue(edt_partime_ptf.text, forKey: "fixedamount")
                                                                  }
                                                                  else if(seglect == 3)
                                                                  {
                                                   
                                                     
-                                                                      user.setValue("PartTimeCommissioned", forKeyPath: "type")
-                                                                     user.setValue(edt_ptc_rate.text, forKeyPath: "rate")
+                                                                    user.setValue("PartTimeCommissioned", forKeyPath: "type")
+                                                                    user.setValue(edt_ptc_rate.text, forKeyPath: "rate")
                                                                     user.setValue(edt_ptc_hw.text, forKey: "hourworked")
-                                                                     user.setValue(edt_ptc_cp.text, forKey: "commissionpercent")
+                                                                    user.setValue(edt_ptc_cp.text, forKey: "commissionpercent")
                                                                     
                                                                         }
                               

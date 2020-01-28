@@ -17,10 +17,9 @@
         <attribute name="salary" optional="YES" attributeType="String"/>
         <attribute name="schoolname" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="vehiclearray" optional="YES" attributeType="Binary"/>
     </entity>
-    <entity name="Vehdata" representedClassName="Vehdata" syncable="YES" codeGenerationType="class"/>
     <elements>
-        <element name="Empdata" positionX="-63" positionY="-18" width="128" height="283"/>
-        <element name="Vehdata" positionX="-54" positionY="108" width="128" height="43"/>
+        <element name="Empdata" positionX="-63" positionY="-18" width="128" height="298"/>
     </elements>
 </model>

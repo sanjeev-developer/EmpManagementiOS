@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddvehViewController: UIViewController {
 
@@ -310,6 +311,9 @@ class AddvehViewController: UIViewController {
             }
             
             
+            func convertarray()
+            {
+            }
             
             
        }
