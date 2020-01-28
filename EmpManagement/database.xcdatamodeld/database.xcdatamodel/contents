@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Empdata" representedClassName="Empdata" syncable="YES" codeGenerationType="class">
+        <attribute name="bonus" optional="YES" attributeType="String"/>
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="commissionpercent" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="dateofbirth" optional="YES" attributeType="String"/>
+        <attribute name="empid" optional="YES" attributeType="String"/>
+        <attribute name="empname" optional="YES" attributeType="String"/>
+        <attribute name="fixedamount" optional="YES" attributeType="String"/>
+        <attribute name="hourworked" optional="YES" attributeType="String"/>
+        <attribute name="imagedata" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="String"/>
+        <attribute name="longitude" optional="YES" attributeType="String"/>
+        <attribute name="rate" optional="YES" attributeType="String"/>
+        <attribute name="salary" optional="YES" attributeType="String"/>
+        <attribute name="schoolname" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Vehdata" representedClassName="Vehdata" syncable="YES" codeGenerationType="class"/>
+    <elements>
+        <element name="Empdata" positionX="-63" positionY="-18" width="128" height="283"/>
+        <element name="Vehdata" positionX="-54" positionY="108" width="128" height="43"/>
+    </elements>
+</model>

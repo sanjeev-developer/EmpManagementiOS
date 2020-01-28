@@ -10,10 +10,8 @@ import Foundation
 
 class Userdata {
 
-      // user dictionary variable
-       var Vehicle:[Vehicledata] = []
-    
-
+    // user dictionary variable
+    var Vehicle:[Vehicledata] = []
     var empname: String!
     var empid: String!
     var schoolname: String!

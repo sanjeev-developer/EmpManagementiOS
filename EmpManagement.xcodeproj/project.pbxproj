@@ -10,6 +10,7 @@
 		AF3EA5AF23D91DA80028DEA9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3EA5AE23D91DA80028DEA9 /* MapViewController.swift */; };
 		AF5D0A44237E7D70008243A3 /* Choosepicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5D0A43237E7D70008243A3 /* Choosepicker.swift */; };
 		AF5D0A46237E8824008243A3 /* AddvehViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5D0A45237E8824008243A3 /* AddvehViewController.swift */; };
+		AF7757F623DFAE2E00C2628C /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF7757F423DFAE2E00C2628C /* database.xcdatamodeld */; };
 		AF988B97237F57CA005D9E43 /* VehiclelistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF988B96237F57CA005D9E43 /* VehiclelistViewController.swift */; };
 		AF988B99237F7BF5005D9E43 /* EmployeeDescViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF988B98237F7BF5005D9E43 /* EmployeeDescViewController.swift */; };
 		AF988B9B237F803D005D9E43 /* EmpDescTabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF988B9A237F803D005D9E43 /* EmpDescTabelTableViewCell.swift */; };
@@ -36,6 +37,7 @@
 		AF3EA5AE23D91DA80028DEA9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AF5D0A43237E7D70008243A3 /* Choosepicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Choosepicker.swift; sourceTree = "<group>"; };
 		AF5D0A45237E8824008243A3 /* AddvehViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddvehViewController.swift; sourceTree = "<group>"; };
+		AF7757F523DFAE2E00C2628C /* database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = database.xcdatamodel; sourceTree = "<group>"; };
 		AF988B96237F57CA005D9E43 /* VehiclelistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclelistViewController.swift; sourceTree = "<group>"; };
 		AF988B98237F7BF5005D9E43 /* EmployeeDescViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDescViewController.swift; sourceTree = "<group>"; };
 		AF988B9A237F803D005D9E43 /* EmpDescTabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpDescTabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				AFECCF57237CFBAC0013D508 /* AppDelegate.swift */,
 				AFECCF59237CFBAC0013D508 /* SceneDelegate.swift */,
 				AFECCF65237CFBB30013D508 /* Info.plist */,
+				AF7757F423DFAE2E00C2628C /* database.xcdatamodeld */,
 				AFECCF8E237CFD040013D508 /* Media.xcassets */,
 			);
 			path = EmpManagement;
@@ -227,6 +230,7 @@
 				AFECCF7F237CFC250013D508 /* UserDetails.swift in Sources */,
 				AFECCF58237CFBAC0013D508 /* AppDelegate.swift in Sources */,
 				AF9FECDB237FBF4E009FB6C5 /* WebviewViewController.swift in Sources */,
+				AF7757F623DFAE2E00C2628C /* database.xcdatamodeld in Sources */,
 				AFECCF87237CFC250013D508 /* AddBillViewController.swift in Sources */,
 				AFECCF82237CFC250013D508 /* Userdata.swift in Sources */,
 				AF988B97237F57CA005D9E43 /* VehiclelistViewController.swift in Sources */,
@@ -417,6 +421,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AF7757F423DFAE2E00C2628C /* database.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AF7757F523DFAE2E00C2628C /* database.xcdatamodel */,
+			);
+			currentVersion = AF7757F523DFAE2E00C2628C /* database.xcdatamodel */;
+			path = database.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AFECCF4C237CFBAC0013D508 /* Project object */;
 }

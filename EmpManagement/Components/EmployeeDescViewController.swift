@@ -62,7 +62,6 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
       {
         
         let decodedData = Data(base64Encoded: UserDetails.shared.userarray[position].imagedata, options: .ignoreUnknownCharacters)!
-           
                
                let imagee = UIImage(data: decodedData)
                img_user.image = imagee

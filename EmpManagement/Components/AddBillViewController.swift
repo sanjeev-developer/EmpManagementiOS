@@ -5,6 +5,7 @@
 
 
 import UIKit
+import CoreData
 
 class AddBillViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate  {
 
@@ -126,8 +127,9 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
                 print(UserDetails.shared.userarray.count)
                 print(UserDetails.shared.userarray)
                 
-                  let obj = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-                  self.navigationController?.pushViewController(obj, animated: true)
+                 createData()
+                
+                
         }
     }
     
@@ -162,6 +164,8 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
             self.profileimage.layer.cornerRadius = profileimage.bounds.width/2
           //  self.profileimage.layer.borderWidth = 1
            // self.profileimage.layer.borderColor = UIColor.lightGray.cgColor
+            
+           
                    
             
             }
@@ -461,17 +465,89 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
             txtlong.text = longglabel
         }
         
-        func base64ToImage(encrptedimage: String) -> UIImage? {
-               guard let imageData = Data(base64Encoded: encrptedimage) else { return nil }
-               return UIImage(data: imageData)
-           }
-}
+       func createData(){
+                  
+                  //As we know that container is set up in the AppDelegates so we need to refer that container.
+                  guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                  
+                  //We need to create a context from this container
+                  let managedContext = appDelegate.persistentContainer.viewContext
+                  
+                  //Now let’s create an entity and new user records.
+                  let userEntity = NSEntityDescription.entity(forEntityName: "Empdata", in: managedContext)!
+                  
+                  //final, we need to add some data to our newly created record for each keys using
+                  //here adding 5 data with loop
 
-extension String {
-    func base64ToImage() -> UIImage? {
-        if let url = URL(string: self),let data = try? Data(contentsOf: url),let image = UIImage(data: data) {
-            return image
-        }
-        return nil
-    }
+               
+                            let user = NSManagedObject(entity: userEntity, insertInto: managedContext)
+                            user.setValue(edt_empid.text, forKey: "empid")
+                            user.setValue(edt_empname.text, forKeyPath: "empname")
+                            user.setValue(txtstate.text, forKeyPath: "country")
+                            user.setValue(edtDate.text, forKey: "dateofbirth")
+                            user.setValue(txtcity.text, forKey: "city")
+                            user.setValue(txtlat.text, forKeyPath: "latitude")
+                            user.setValue(encrptedimage, forKey: "imagedata")
+                            user.setValue(txtlong.text, forKey: "longitude")
+                
+                                                                 if(seglect == 0)
+                                                                 {
+                                                                    user.setValue("Intern", forKeyPath: "type")
+                                                                    user.setValue(edt_inten_school.text, forKey: "schoolname")
+                                                                    user.setValue(edt_salary_intern.text, forKey: "salary")
+                                                                 }
+                                                                 else if(seglect == 1)
+                                                                 {
+                                                   
+                                                                    
+                                                                     user.setValue("FullTime", forKeyPath: "type")
+                                                                     user.setValue(edt_fulltime_salary.text, forKey: "salary")
+                                                                     user.setValue(edt_fulltime_bonus.text, forKeyPath: "bonus")
+                                                                 }
+                                                                 else if(seglect == 2)
+                                                                 {
+                                                    
+                                                                    
+                                                                     user.setValue("PartTimeFixed", forKeyPath: "type")
+                                                                     user.setValue(edt_rate_ptf.text, forKeyPath: "rate")
+                                                                    user.setValue(edt_hourworked_ptf.text, forKey: "hourworked")
+                                                                    user.setValue(edt_partime_ptf.text, forKey: "fixedamount")
+                                                                 }
+                                                                 else if(seglect == 3)
+                                                                 {
+                                                  
+                                                    
+                                                                      user.setValue("PartTimeCommissioned", forKeyPath: "type")
+                                                                     user.setValue(edt_ptc_rate.text, forKeyPath: "rate")
+                                                                    user.setValue(edt_ptc_hw.text, forKey: "hourworked")
+                                                                     user.setValue(edt_ptc_cp.text, forKey: "commissionpercent")
+                                                                    
+                                                                        }
+                              
+
+                     //Now we have set all the values. The next step is to save them inside the Core Data
+                  
+                  do {
+                      try managedContext.save()
+                    
+                    let alert = UIAlertController(title: "Alert", message: "Employee registered successfully", preferredStyle: .alert)
+
+                                              alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
+                                                        //run your function here
+                                                       let obj = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                                                        self.navigationController?.pushViewController(obj, animated: true)
+                                                    }))
+                                             self.present(alert, animated: true)
+                    
+                    
+                     
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                    
+                    let alert = UIAlertController(title: "Could not save.", message: "\(error)", preferredStyle: .alert)
+
+                          alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: nil))
+                          self.present(alert, animated: true)
+                  }
+              }
 }
