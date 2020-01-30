@@ -24,6 +24,13 @@ class ViewController: UIViewController {
         self.butlog.clipsToBounds = true
         self.imgLog.image = UIImage(named:"logo")
         
+        //Looks for single or multiple taps.
+          let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+
+          //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+          //tap.cancelsTouchesInView = false
+
+          view.addGestureRecognizer(tap)
    
               if(UserDetails.shared.userarray.isEmpty)
                      {
@@ -128,6 +135,10 @@ class ViewController: UIViewController {
                 self.present(alert, animated: true)
     }
     
-    
+    //Calls this function when the tap is recognized.
+      @objc func dismissKeyboard() {
+          //Causes the view (or one of its embedded text fields) to resign the first responder status.
+          view.endEditing(true)
+      }
     
 }

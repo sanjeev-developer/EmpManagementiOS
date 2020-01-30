@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate
 {
@@ -23,8 +24,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       // deletedatabase()
         determineMyCurrentLocation()
+        
+        //Looks for single or multiple taps.
+                  let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+
+                  //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+                  //tap.cancelsTouchesInView = false
+
+                 self.view.addGestureRecognizer(tap)
+
     
         let viewgesture = UITapGestureRecognizer()
         viewgesture.numberOfTapsRequired = 1
@@ -189,4 +199,39 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate
        {
            print("Error \(error)")
        }
+    
+    func deletedatabase()
+    {
+        // 1
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        // 2
+        let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Empdata")
+        let fetchrequestt = NSFetchRequest<NSFetchRequestResult>(entityName: "Vehinfo")
+        //fetchrequest.predicate = NSPredicate(format: "name = %@", name)
+        // 3
+        do {
+        let test = try managedContext.fetch(fetchrequestt)
+        //let objectToDelete = test[0] as! NSManagedObject
+
+            for i in 0...test.count-1{
+                let objectToDelete = test[i] as! NSManagedObject
+                 managedContext.delete(objectToDelete)
+                       }
+          do {
+               try managedContext.save()
+               //   print("deleted successfully")
+             } catch  {
+               //  print(error)
+             }
+        } catch {
+        //  print(error)
+        }
+    }
+    
+    //Calls this function when the tap is recognized.
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
 }

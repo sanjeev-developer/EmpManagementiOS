@@ -4,9 +4,9 @@
 //
 //  Created by sanjeev gupta on 2019-11-15.
 //  Copyright © 2019 sanjeev gupta. All rights reserved.
-//
 
 import UIKit
+import CoreData
 
 class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
 
@@ -44,53 +44,53 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
     @IBOutlet var txt_schoolname: UILabel!
     @IBOutlet var txt_salary_intern: UILabel!
     
+    var empArr = Empdata()
+    var objectUpdate : NSManagedObject!
+    var result:[Any] = []
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
         
-        txt_empid.text =  UserDetails.shared.userarray[position].empid
-        txt_empname.text =  UserDetails.shared.userarray[position].empname
-        txt_empage.text =  UserDetails.shared.userarray[position].dateofbirth
-        txt_emptype.text =  UserDetails.shared.userarray[position].type
-        txt_country.text =  UserDetails.shared.userarray[position].country
-        txt_city.text =  UserDetails.shared.userarray[position].city
-       // txt_empage.text = String(getAgeFromDOF(date: UserDetails.shared.userarray[position].dateofbirth))
+        txt_empid.text =  empArr.empid
+        txt_empname.text = empArr.empname
+        txt_empage.text =  empArr.dateofbirth
+        txt_emptype.text =  empArr.type
+        txt_country.text =  empArr.country
+        txt_city.text =  empArr.city
         
-        self.img_user.layer.cornerRadius = img_user.bounds.width/2
-
+        retrievevehData()
         
-      if(UserDetails.shared.userarray[position].imagedata != nil)
+      self.img_user.layer.cornerRadius = img_user.bounds.width/2
+        
+      if(empArr.imagedata != nil)
       {
         
-        let decodedData = Data(base64Encoded: UserDetails.shared.userarray[position].imagedata, options: .ignoreUnknownCharacters)!
+        let decodedData = Data(base64Encoded: empArr.imagedata!, options: .ignoreUnknownCharacters)!
                
                let imagee = UIImage(data: decodedData)
                img_user.image = imagee
-           
         }
-       
-                 
-            
-        
-        if(UserDetails.shared.userarray[position].type == "Intern")
+
+        if(empArr.type == "Intern")
         {
             view_intern.isHidden = false
             view_fulltime.isHidden = true
             view_ptc.isHidden = true
             view_ptf.isHidden = true
-            txt_schoolname.text = UserDetails.shared.userarray[position].schoolname
-            var salary : String = UserDetails.shared.userarray[position].salary
+            txt_schoolname.text = empArr.schoolname
+            var salary : String = empArr.salary as! String
             txt_salary_intern.text = "$ \(salary)"
             txt_total.text = "$ \(salary)"
         }
-        else if(UserDetails.shared.userarray[position].type == "FullTime")
+        else if(empArr.type == "FullTime")
         {
             view_intern.isHidden = true
-                      view_fulltime.isHidden = false
-                      view_ptc.isHidden = true
-                      view_ptf.isHidden = true
+            view_fulltime.isHidden = false
+            view_ptc.isHidden = true
+            view_ptf.isHidden = true
             
-            var bonus : String = UserDetails.shared.userarray[position].bonus
-            var salary : String = UserDetails.shared.userarray[position].salary
+            var bonus : String = empArr.bonus!
+            var salary : String = empArr.salary!
             
             txt_bonus_ft.text = "$ \(bonus)"
             txt_salary_ft.text = "$ \(salary)"
@@ -99,16 +99,16 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
             txt_total.text = "$ \(totalbill)"
         }
             
-        else if(UserDetails.shared.userarray[position].type == "PartTimeFixed")
+        else if(empArr.type == "PartTimeFixed")
         {
-           view_intern.isHidden = true
+                     view_intern.isHidden = true
                      view_fulltime.isHidden = true
                      view_ptc.isHidden = true
                      view_ptf.isHidden = false
             
-            var wage : String = UserDetails.shared.userarray[position].rate
-            var hour : String = UserDetails.shared.userarray[position].HourWorked
-            var fixedamount : String = UserDetails.shared.userarray[position].fixedamount
+            var wage : String = empArr.rate!
+            var hour : String = empArr.hourworked!
+            var fixedamount : String = empArr.fixedamount!
             
                             txt_hwage_ptf.text = "$ \(wage)"
                             txt_hworked_ptf.text = "\(hour) hr"
@@ -118,16 +118,16 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
             txt_total.text = "$ \(totalbill)"
         }
         
-        if(UserDetails.shared.userarray[position].type == "PartTimeCommissioned")
+        if(empArr.type == "PartTimeCommissioned")
         {
-            view_intern.isHidden = true
+                      view_intern.isHidden = true
                       view_fulltime.isHidden = true
                       view_ptc.isHidden = false
                       view_ptf.isHidden = true
             
-                      var wage : String = UserDetails.shared.userarray[position].rate
-                      var hour : String = UserDetails.shared.userarray[position].HourWorked
-                      var commission : String = UserDetails.shared.userarray[position].commissionpercent
+                      var wage : String = empArr.rate!
+                      var hour : String = empArr.hourworked!
+                      var commission : String = empArr.commissionpercent!
             
                        txt_hwage_ptc.text = "$ \(wage)"
                        txt_hworked_ptc.text = "\(hour) hr"
@@ -138,7 +138,7 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
         }
 
         
-        if(UserDetails.shared.userarray[position].Vehicle.isEmpty)
+        if(result.isEmpty)
         {
             txt_vehiclestatus.text =  "No"
         }
@@ -149,55 +149,55 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
     }
     
       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return( UserDetails.shared.userarray[position].Vehicle.count)
+            return(result.count)
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
+            objectUpdate = result[indexPath.row] as! NSManagedObject
             let cell = EmpDescTabel.dequeueReusableCell(withIdentifier: "desccell", for: indexPath) as! EmpDescTabelTableViewCell
-            cell.txt_title_type.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].vehicletype
-            cell.txt_company.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].company
-            cell.txt_Model.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].model
-            cell.txt_plate.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].plate
-            cell.txt_year.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].year
+            cell.txt_title_type.text =  objectUpdate.value(forKey: "vehicletype") as! String
+            cell.txt_company.text =  objectUpdate.value(forKey: "company") as! String
+            cell.txt_Model.text =  objectUpdate.value(forKey: "model") as! String
+            cell.txt_plate.text =  objectUpdate.value(forKey: "plate") as! String
+            cell.txt_year.text =  objectUpdate.value(forKey: "company") as! String
             
-            if(UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Honda")
+            if(objectUpdate.value(forKey: "company") as! String == "Honda")
             {
              cell.img_vehicle.image = UIImage(named: "honda")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Chervolet")
+            else if (objectUpdate.value(forKey: "company") as! String == "Chervolet")
             {
                 cell.img_vehicle.image  = UIImage(named: "cheve")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "BMW")
+            else if (objectUpdate.value(forKey: "company") as! String == "BMW")
             {
                 cell.img_vehicle.image  = UIImage(named: "bmw")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Mercedes")
+            else if (objectUpdate.value(forKey: "company") as! String == "Mercedes")
             {
                 cell.img_vehicle.image  = UIImage(named: "mercedes")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Landrover")
+            else if (objectUpdate.value(forKey: "company") as! String == "Landrover")
             {
                 cell.img_vehicle.image  = UIImage(named: "landrover")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Bajaj")
+            else if (objectUpdate.value(forKey: "company") as! String == "Bajaj")
             {
                 cell.img_vehicle.image  = UIImage(named: "chetak")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Ford")
+            else if (objectUpdate.value(forKey: "company") as! String == "Ford")
             {
                 cell.img_vehicle.image  = UIImage(named: "ford")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Suzuki")
+            else if (objectUpdate.value(forKey: "company") as! String == "Suzuki")
             {
                 cell.img_vehicle.image  = UIImage(named: "suzuki")
             }
-            else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Audi")
-                               {
-                                   cell.img_vehicle.image = UIImage(named: "Audi")
-                               }
-            
+            else if (objectUpdate.value(forKey: "company") as! String == "Audi")
+            {
+                  cell.img_vehicle.image = UIImage(named: "Audi")
+            }
             return cell
         }
         
@@ -220,7 +220,7 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
     
     func getAgeFromDOF(date: String) -> (Int)
     {
-       //      edtDate.text = dateFormatter1.string(from: date)
+//             edtDate.text = dateFormatter1.string(from: date)
 //             let dateFormater = DateFormatter()
 //             dateFormater.dateFormat = "YYYY-MM-dd"
                let dateFormatter1 = DateFormatter()
@@ -232,4 +232,33 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
                dateOfBirth!, to: Date())
                return dateComponent.year!
            }
+    
+    
+        
+        func retrievevehData() {
+    
+                   //As we know that container is set up in the AppDelegates so we need to refer that container.
+                   guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+    
+                   //We need to create a context from this container
+                   let managedContext = appDelegate.persistentContainer.viewContext
+    
+                   //Prepare the request of type NSFetchRequest  for the entity
+                   let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Vehinfo")
+    
+                   do {
+                       result = try managedContext.fetch(fetchRequest)
+    
+           //            if(!result.isEmpty)
+           //            {
+           //                for i in 0...result.count{
+           //                    objectUpdate = result[position] as! NSManagedObject
+           //                    print(objectUpdate.value(forKey: "company") as! String)
+           //                }
+           //
+           //            }
+                   } catch {
+                       print("Failed")
+                   }
+               }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 
-class UserDetails {
+class UserDetails{
     
     static let shared = UserDetails()
     var userarray:[Userdata] = []

@@ -3,17 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "EmployeeDescViewController.viewDidLoad():EmployeeDescViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDetails.shared.userarray[position].rate">
-            </PersistentString>
-            <PersistentString
-               value = "UserDetails.shared.userarray[position]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "CoustmerlistViewController.tableView(_:didSelectRowAt:):CoustmerlistViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -22,10 +11,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AddBillViewController.addemployee(_:):AddBillViewController.swift">
+         contextName = "ViewController.but_login(_:):ViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "UserDetails.shared.userarray">
+               value = "edt_admin_username.text == username &amp;&amp; edt_admin_password.text == password">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -47,10 +36,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ViewController.but_login(_:):ViewController.swift">
+         contextName = "AddBillViewController.createData():AddBillViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "edt_admin_username.text == username &amp;&amp; edt_admin_password.text == password">
+               value = "txtstate.text">
+            </PersistentString>
+            <PersistentString
+               value = "txtcity.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -59,6 +51,42 @@
          <PersistentStrings>
             <PersistentString
                value = "dateFormatter1.date(from: date)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AddBillViewController.addemployee(_:):AddBillViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDetails.shared.userarray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "EmployeeDescViewController.viewDidLoad():EmployeeDescViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDetails.shared.userarray[position].rate">
+            </PersistentString>
+            <PersistentString
+               value = "UserDetails.shared.userarray[position]">
+            </PersistentString>
+            <PersistentString
+               value = "empArr.city">
+            </PersistentString>
+            <PersistentString
+               value = "empArr">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "VehiclelistViewController.retrieveData():VehiclelistViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+            <PersistentString
+               value = "objectUpdate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

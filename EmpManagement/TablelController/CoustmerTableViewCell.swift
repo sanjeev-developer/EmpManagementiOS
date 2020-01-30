@@ -13,14 +13,17 @@ class CoustmerTableViewCell: UITableViewCell {
     @IBOutlet var txtCellName: UILabel!
     @IBOutlet var txtCellEmail: UILabel!
     @IBOutlet var txtCellPhone: UILabel!
+    @IBOutlet var profileimage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+       // self.profileimage.layer.cornerRadius = profileimage.bounds.width/2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        self.profileimage.layer.cornerRadius = profileimage.bounds.width/2
         // Configure the view for the selected state
     }
 

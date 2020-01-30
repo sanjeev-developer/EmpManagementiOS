@@ -7,65 +7,71 @@
 //
 
 import UIKit
+import CoreData
 
 class VehiclelistViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
-
+    
     
     @IBOutlet var vehicletabel: UITableView!
     @IBOutlet var but_back_vlist: UIButton!
     @IBOutlet var but_add_vehicle: UIButton!
     var position : Int!
-
+    var empid : String!
+    var objectUpdate : NSManagedObject!
+    var result:[Any] = []
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return( UserDetails.shared.userarray[position].Vehicle.count)
+        return( result.count)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = vehicletabel.dequeueReusableCell(withIdentifier: "vehiclecell", for: indexPath) as! VehicleListTableViewCell
-        cell.txt_vehicle_type.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].vehicletype
-        cell.txt_vehicle_model.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].model
-        cell.txt_vehicle_plate.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].plate
-        cell.txt_comapny.text =  UserDetails.shared.userarray[position].Vehicle[indexPath.row].company
+        objectUpdate = result[indexPath.row] as! NSManagedObject
         
-        if(UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Honda")
-                   {
-                    cell.img_list.image = UIImage(named: "honda")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Chervolet")
-                   {
-                       cell.img_list.image = UIImage(named: "cheve")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "BMW")
-                   {
-                       cell.img_list.image = UIImage(named: "bmw")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Mercedes")
-                   {
-                       cell.img_list.image = UIImage(named: "mercedes")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Landrover")
-                   {
-                       cell.img_list.image = UIImage(named: "landrover")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Bajaj")
-                   {
-                       cell.img_list.image = UIImage(named: "chetak")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Ford")
-                   {
-                       cell.img_list.image = UIImage(named: "ford")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Suzuki")
-                   {
-                       cell.img_list.image = UIImage(named: "suzuki")
-                   }
-                   else if (UserDetails.shared.userarray[position].Vehicle[indexPath.row].company == "Audi")
-                                      {
-                                          cell.img_list.image = UIImage(named: "Audi")
-                                      }
-                   return cell
+        let cell = vehicletabel.dequeueReusableCell(withIdentifier: "vehiclecell", for: indexPath) as! VehicleListTableViewCell
+        cell.txt_vehicle_type.text =  objectUpdate.value(forKey: "vehicletype") as! String
+        cell.txt_vehicle_model.text =  objectUpdate.value(forKey: "model") as! String
+        cell.txt_vehicle_plate.text =  objectUpdate.value(forKey: "plate") as! String
+        cell.txt_comapny.text =  objectUpdate.value(forKey: "company") as! String
+        
+        if(objectUpdate.value(forKey: "company") as! String == "Honda")
+        {
+            cell.img_list.image = UIImage(named: "honda")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "Chervolet")
+        {
+            cell.img_list.image = UIImage(named: "cheve")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "BMW")
+        {
+            cell.img_list.image = UIImage(named: "bmw")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "Mercedes")
+        {
+            cell.img_list.image = UIImage(named: "mercedes")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "Landrover")
+        {
+            cell.img_list.image = UIImage(named: "landrover")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "Bajaj")
+        {
+            cell.img_list.image = UIImage(named: "chetak")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "Ford")
+        {
+            cell.img_list.image = UIImage(named: "ford")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "Suzuki")
+        {
+            cell.img_list.image = UIImage(named: "suzuki")
+        }
+        else if (objectUpdate.value(forKey: "company") as! String == "Audi")
+        {
+            cell.img_list.image = UIImage(named: "Audi")
+        }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -80,17 +86,17 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
 
         alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { action in
             //run your function here
-            self.deletevehicle(data : indexPath.row)
+            self.deletevehdata(data : indexPath.row)
         }))
-        alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { action in
-                   //run your function here
-                   self.movetoedit(data : indexPath.row)
-               }))
+//        alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { action in
+//            //run your function here
+//            self.movetoedit(data : indexPath.row)
+//        }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
-
+    
     @IBAction func but_back_clist(_ sender: Any) {
         
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
@@ -104,20 +110,94 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
     }
     
     func movetoedit(data : Int)
-      {
+    {
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "AddvehViewController") as! AddvehViewController
         obj.vehicleposition = data
         obj.userposition = position
         obj.purpose = "edit"
+        obj.empid = self.empid
         self.navigationController?.pushViewController(obj, animated: true)
-      }
+    }
     
-    @IBAction func butmovetoadd(_ sender: Any) {
+    @IBAction func butmovetoadd(_ sender: Any)
+    {
         
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "AddvehViewController") as! AddvehViewController
         obj.userposition = position
         obj.purpose = "add"
+        obj.empid = self.empid
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        retrieveData()
+    }
+    
+    
+    func retrieveData() {
+        
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        //Prepare the request of type NSFetchRequest  for the entity
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Vehinfo")
+        
+        do {
+            result = try managedContext.fetch(fetchRequest)
+            
+//            if(!result.isEmpty)
+//            {
+//                for i in 0...result.count{
+//                    objectUpdate = result[position] as! NSManagedObject
+//                    print(objectUpdate.value(forKey: "company") as! String)
+//                }
+//
+//            }
+            
+            
+            
+        } catch {
+            print("Failed")
+        }
+    }
+    
+func deletevehdata(data : Int)
+  {
+      //As we know that container is set up in the AppDelegates so we need to refer that container.
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                
+                //We need to create a context from this container
+                let managedContext = appDelegate.persistentContainer.viewContext
+                
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Vehinfo")
+               
+                do
+                {
+                    let test = try managedContext.fetch(fetchRequest)
+                    
+                    let objectToDelete = test[data] as! NSManagedObject
+                    managedContext.delete(objectToDelete)
+                    
+                    do{
+                        try managedContext.save()
+                    }
+                    catch
+                    {
+                        print(error)
+                    }
+                  
+                    retrieveData()
+                    vehicletabel.reloadData()
+                }
+                catch
+                {
+                    print(error)
+                }
+    
+}
 }

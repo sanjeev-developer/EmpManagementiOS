@@ -129,7 +129,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
                     
                     if placemark.subLocality != nil{
                         address = address + placemark.subLocality!  + "\n"
-                        self.state = "\(placemark.subLocality)"
+                        self.state = placemark.subLocality!
                     }
                     
                     if placemark.subAdministrativeArea != nil{
@@ -143,7 +143,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
                     
                     if placemark.country != nil{
                         address = address + placemark.country! + "\n"
-                        self.country = "\(placemark.country)"
+                        self.country = placemark.country!
                     }
                   
                     annotation.title = address

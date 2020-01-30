@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Empdata" representedClassName="Empdata" syncable="YES" codeGenerationType="class">
+    <entity name="Empdata" representedClassName="Empdata" syncable="YES">
         <attribute name="bonus" optional="YES" attributeType="String"/>
         <attribute name="city" optional="YES" attributeType="String"/>
         <attribute name="commissionpercent" optional="YES" attributeType="String"/>
@@ -17,9 +17,28 @@
         <attribute name="salary" optional="YES" attributeType="String"/>
         <attribute name="schoolname" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="vehiclearray" optional="YES" attributeType="Binary"/>
+        <relationship name="vechicles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Vehdata" inverseName="emp" inverseEntity="Vehdata"/>
+    </entity>
+    <entity name="Vehdata" representedClassName="Vehdata" syncable="YES">
+        <attribute name="company" optional="YES" attributeType="String"/>
+        <attribute name="empid" optional="YES" attributeType="String"/>
+        <attribute name="model" optional="YES" attributeType="String"/>
+        <attribute name="plate" optional="YES" attributeType="String"/>
+        <attribute name="vehicletype" optional="YES" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="String"/>
+        <relationship name="emp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Empdata" inverseName="vechicles" inverseEntity="Empdata"/>
+    </entity>
+    <entity name="Vehinfo" representedClassName="Vehinfo" syncable="YES" codeGenerationType="class">
+        <attribute name="company" optional="YES" attributeType="String"/>
+        <attribute name="empid" optional="YES" attributeType="String"/>
+        <attribute name="model" optional="YES" attributeType="String"/>
+        <attribute name="plate" optional="YES" attributeType="String"/>
+        <attribute name="vehicletype" optional="YES" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Empdata" positionX="-63" positionY="-18" width="128" height="298"/>
+        <element name="Vehdata" positionX="-45" positionY="126" width="128" height="148"/>
+        <element name="Vehinfo" positionX="-54" positionY="117" width="128" height="133"/>
     </elements>
 </model>
