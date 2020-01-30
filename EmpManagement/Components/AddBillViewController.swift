@@ -54,11 +54,17 @@ class AddBillViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet var txtlat: UILabel!
     @IBOutlet var txtlong: UILabel!
     @IBOutlet var butpickloc: UIButton!
+
     
     @IBAction func picklocation(_ sender: Any) {
         
+
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
         obj.addbillcontroller = self
+        obj.state = txtstate.text!
+        obj.latlabel = txtlat.text!
+        obj.longlabel = txtlong.text!
+        obj.country = txtcity.text!
         self.navigationController?.pushViewController(obj, animated: true)
     }
     

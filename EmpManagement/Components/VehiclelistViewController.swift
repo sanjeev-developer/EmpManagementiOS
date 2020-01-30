@@ -19,6 +19,7 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
     var empid : String!
     var objectUpdate : NSManagedObject!
     var result:[Any] = []
+    var cell : VehicleListTableViewCell!
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,48 +30,53 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
         
         objectUpdate = result[indexPath.row] as! NSManagedObject
         
-        let cell = vehicletabel.dequeueReusableCell(withIdentifier: "vehiclecell", for: indexPath) as! VehicleListTableViewCell
-        cell.txt_vehicle_type.text =  objectUpdate.value(forKey: "vehicletype") as! String
-        cell.txt_vehicle_model.text =  objectUpdate.value(forKey: "model") as! String
-        cell.txt_vehicle_plate.text =  objectUpdate.value(forKey: "plate") as! String
-        cell.txt_comapny.text =  objectUpdate.value(forKey: "company") as! String
+        if(objectUpdate.value(forKey: "empid") as! String == empid)
+        {
+            cell = vehicletabel.dequeueReusableCell(withIdentifier: "vehiclecell", for: indexPath) as! VehicleListTableViewCell
+             cell.txt_vehicle_type.text =  objectUpdate.value(forKey: "vehicletype") as! String
+             cell.txt_vehicle_model.text =  objectUpdate.value(forKey: "model") as! String
+             cell.txt_vehicle_plate.text =  objectUpdate.value(forKey: "plate") as! String
+             cell.txt_comapny.text =  objectUpdate.value(forKey: "company") as! String
+             
+             if(objectUpdate.value(forKey: "company") as! String == "Honda")
+             {
+                 cell.img_list.image = UIImage(named: "honda")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "Chervolet")
+             {
+                 cell.img_list.image = UIImage(named: "cheve")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "BMW")
+             {
+                 cell.img_list.image = UIImage(named: "bmw")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "Mercedes")
+             {
+                 cell.img_list.image = UIImage(named: "mercedes")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "Landrover")
+             {
+                 cell.img_list.image = UIImage(named: "landrover")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "Bajaj")
+             {
+                 cell.img_list.image = UIImage(named: "chetak")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "Ford")
+             {
+                 cell.img_list.image = UIImage(named: "ford")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "Suzuki")
+             {
+                 cell.img_list.image = UIImage(named: "suzuki")
+             }
+             else if (objectUpdate.value(forKey: "company") as! String == "Audi")
+             {
+                 cell.img_list.image = UIImage(named: "Audi")
+             }
+        }
         
-        if(objectUpdate.value(forKey: "company") as! String == "Honda")
-        {
-            cell.img_list.image = UIImage(named: "honda")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "Chervolet")
-        {
-            cell.img_list.image = UIImage(named: "cheve")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "BMW")
-        {
-            cell.img_list.image = UIImage(named: "bmw")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "Mercedes")
-        {
-            cell.img_list.image = UIImage(named: "mercedes")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "Landrover")
-        {
-            cell.img_list.image = UIImage(named: "landrover")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "Bajaj")
-        {
-            cell.img_list.image = UIImage(named: "chetak")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "Ford")
-        {
-            cell.img_list.image = UIImage(named: "ford")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "Suzuki")
-        {
-            cell.img_list.image = UIImage(named: "suzuki")
-        }
-        else if (objectUpdate.value(forKey: "company") as! String == "Audi")
-        {
-            cell.img_list.image = UIImage(named: "Audi")
-        }
+ 
         return cell
     }
     
@@ -102,12 +108,7 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         self.navigationController?.pushViewController(obj, animated: true)
     }
-    
-    func deletevehicle(data : Int)
-    {
-        UserDetails.shared.userarray[position].Vehicle.remove(at: data)
-        DispatchQueue.main.async { self.vehicletabel.reloadData() }
-    }
+
     
     func movetoedit(data : Int)
     {
@@ -148,7 +149,16 @@ class VehiclelistViewController: UIViewController , UITableViewDataSource, UITab
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Vehinfo")
         
         do {
-            result = try managedContext.fetch(fetchRequest)
+            let res = try managedContext.fetch(fetchRequest)
+            for i in res {
+                 objectUpdate = i as! NSManagedObject
+                 if(objectUpdate.value(forKey: "empid") as! String == empid)
+                 {
+                    result.append(i)
+                }
+            }
+            
+            self.vehicletabel.reloadData()
             
 //            if(!result.isEmpty)
 //            {
@@ -191,8 +201,9 @@ func deletevehdata(data : Int)
                         print(error)
                     }
                   
-                    retrieveData()
-                    vehicletabel.reloadData()
+                    let obj = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                           self.navigationController?.pushViewController(obj, animated: true)
+                    //vehicletabel.reloadData()
                 }
                 catch
                 {

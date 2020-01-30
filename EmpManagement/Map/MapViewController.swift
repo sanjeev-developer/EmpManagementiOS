@@ -46,6 +46,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
         let gestureDoubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
         gestureDoubleTap.numberOfTapsRequired = 2
         mapView.addGestureRecognizer(gestureDoubleTap)
+        
+        if(state == "State" || state == "")
+        {
+            
+        }
+        else
+        {
+            let latitude: CLLocationDegrees = Double(latlabel) as! CLLocationDegrees
+                let longitude: CLLocationDegrees = Double(longlabel) as! CLLocationDegrees
+                let latDelta: CLLocationDegrees = 0.01
+                let lonDelta: CLLocationDegrees = 0.01
+                let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+            let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
+            let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
+                self.mapView.setRegion(region, animated: true)
+                let annotation: MKPointAnnotation = MKPointAnnotation()
+                annotation.coordinate = location
+                annotation.title = state
+                annotation.subtitle = "selected location"
+                self.mapView.addAnnotation(annotation)
+        }
     }
     
     

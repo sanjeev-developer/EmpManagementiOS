@@ -47,6 +47,7 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
     var empArr = Empdata()
     var objectUpdate : NSManagedObject!
     var result:[Any] = []
+    var cell : EmpDescTabelTableViewCell!
     
     override func viewDidLoad() {
     super.viewDidLoad()
@@ -155,7 +156,11 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             objectUpdate = result[indexPath.row] as! NSManagedObject
-            let cell = EmpDescTabel.dequeueReusableCell(withIdentifier: "desccell", for: indexPath) as! EmpDescTabelTableViewCell
+            
+            if(objectUpdate.value(forKey: "empid") as! String == empArr.empid)
+                  {
+            
+            cell = EmpDescTabel.dequeueReusableCell(withIdentifier: "desccell", for: indexPath) as! EmpDescTabelTableViewCell
             cell.txt_title_type.text =  objectUpdate.value(forKey: "vehicletype") as! String
             cell.txt_company.text =  objectUpdate.value(forKey: "company") as! String
             cell.txt_Model.text =  objectUpdate.value(forKey: "model") as! String
@@ -197,6 +202,8 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
             else if (objectUpdate.value(forKey: "company") as! String == "Audi")
             {
                   cell.img_vehicle.image = UIImage(named: "Audi")
+            }
+                    
             }
             return cell
         }
@@ -247,18 +254,19 @@ class EmployeeDescViewController: UIViewController , UITableViewDataSource, UITa
                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Vehinfo")
     
                    do {
-                       result = try managedContext.fetch(fetchRequest)
+                      // result = try managedContext.fetch(fetchRequest)
     
-           //            if(!result.isEmpty)
-           //            {
-           //                for i in 0...result.count{
-           //                    objectUpdate = result[position] as! NSManagedObject
-           //                    print(objectUpdate.value(forKey: "company") as! String)
-           //                }
-           //
-           //            }
-                   } catch {
-                       print("Failed")
+           let res = try managedContext.fetch(fetchRequest)
+           for i in res {
+                objectUpdate = i as! NSManagedObject
+                if(objectUpdate.value(forKey: "empid") as! String == empArr.empid)
+                {
+                   result.append(i)
+               }
                    }
                }
+            catch {
+                print("Failed")
+            }
+}
 }

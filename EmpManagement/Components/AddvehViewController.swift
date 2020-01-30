@@ -343,7 +343,7 @@ extension AddvehViewController: ToolbarPickerViewDelegate {
         do {
             try managedContext.save()
             let obj = self.storyboard?.instantiateViewController(withIdentifier: "VehiclelistViewController") as! VehiclelistViewController
-            obj.position = userposition
+            obj.empid = empid
             self.navigationController?.pushViewController(obj, animated: true)
             
         } catch let error as NSError {

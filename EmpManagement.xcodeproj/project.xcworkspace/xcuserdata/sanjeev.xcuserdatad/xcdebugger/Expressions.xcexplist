@@ -36,6 +36,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "MapViewController.viewDidLoad():MapViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "state">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoustmerlistViewController.tableView(_:cellForRowAt:):CoustmerlistViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "AddBillViewController.createData():AddBillViewController.swift">
          <PersistentStrings>
             <PersistentString
