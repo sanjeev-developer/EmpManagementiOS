@@ -36,3 +36,4 @@ toolBar.tintColor = .black
 toolBar.sizeToFit()
 
 let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneTapped))
+let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
