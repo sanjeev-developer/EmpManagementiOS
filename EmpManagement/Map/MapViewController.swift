@@ -81,7 +81,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
         navigationController?.popViewController(animated: true)
     }
     
-    
+    @IBAction func mapZoomStepper(_ sender: UIStepper) {
+           
+           if sender.value < 0
+                  {
+                      var region: MKCoordinateRegion = mapView.region
+                      region.span.latitudeDelta = min(region.span.latitudeDelta * 2.0, 180.0)
+                      region.span.longitudeDelta = min(region.span.longitudeDelta * 2.0, 180.0)
+                      mapView.setRegion(region, animated: true)
+                      zoomStepperOutlet.value = 0
+                  }
+                  else
+                  {
+                      var region: MKCoordinateRegion = mapView.region
+                      region.span.latitudeDelta /= 2.0
+                      region.span.longitudeDelta /= 2.0
+                      mapView.setRegion(region, animated: true)
+                      zoomStepperOutlet.value = 0
+                  }
+       }
     
         
         @objc func doubleTap(gestureRecognizer : UILongPressGestureRecognizer)
