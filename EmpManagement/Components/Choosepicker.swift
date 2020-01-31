@@ -34,3 +34,5 @@ toolBar.barStyle = UIBarStyle.default
 toolBar.isTranslucent = true
 toolBar.tintColor = .black
 toolBar.sizeToFit()
+
+let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneTapped))
