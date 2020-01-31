@@ -127,7 +127,13 @@ class ViewController: UIViewController {
     
    
     
-    
+    func showdialog(data : String )  {
+        
+                let alert = UIAlertController(title: "Alert", message: data, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: nil))
+
+                self.present(alert, animated: true)
+    }
     
     //Calls this function when the tap is recognized.
       @objc func dismissKeyboard() {
