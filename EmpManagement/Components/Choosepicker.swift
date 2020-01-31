@@ -9,3 +9,7 @@
 import Foundation
 import UIKit
 
+protocol ToolbarPickerViewDelegate: class {
+    func didTapDone()
+    func didTapCancel()
+}
