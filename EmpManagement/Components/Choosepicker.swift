@@ -44,3 +44,13 @@ toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
 
        self.toolbar = toolBar
    }
+
+@objc func doneTapped() {
+        self.toolbarDelegate?.didTapDone()
+    }
+
+    @objc func cancelTapped() {
+        self.toolbarDelegate?.didTapCancel()
+    }
+}
+
