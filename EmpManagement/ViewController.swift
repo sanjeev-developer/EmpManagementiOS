@@ -20,9 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.butlog.layer.cornerRadius = 10
-        self.butlog.clipsToBounds = true
-        self.imgLog.image = UIImage(named:"logo")
+        
         
         //Looks for single or multiple taps.
           let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
