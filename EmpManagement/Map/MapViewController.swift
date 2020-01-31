@@ -173,6 +173,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDe
             }
         }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+            //grab user location
+            let userLocation : CLLocation = locations[0]
+            let lat = userLocation.coordinate.latitude
+            let long = userLocation.coordinate.longitude
+            //define delta (difference) of lat and long
+            let latDelta : CLLocationDegrees = 0.09
+            let longDelta : CLLocationDegrees = 0.09
+
+            let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let region = MKCoordinateRegion(center: location, span: span)
+            // set the region on the map
+            mapView.setRegion(region, animated: true)
+            mapView.showsUserLocation = true
+        }
     
     func findroute(user: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, route: transporttype)
     {
