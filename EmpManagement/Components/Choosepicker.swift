@@ -28,4 +28,9 @@ required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     self.commonInit()
 }
-
+private func commonInit() {
+let toolBar = UIToolbar()
+toolBar.barStyle = UIBarStyle.default
+toolBar.isTranslucent = true
+toolBar.tintColor = .black
+toolBar.sizeToFit()
