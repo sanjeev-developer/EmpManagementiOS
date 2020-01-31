@@ -37,18 +37,3 @@ extension Empdata {
 }
 
 // MARK: Generated accessors for vechicles
-extension Empdata {
-
-    @objc(addVechiclesObject:)
-    @NSManaged public func addToVechicles(_ value: Vehdata)
-
-    @objc(removeVechiclesObject:)
-    @NSManaged public func removeFromVechicles(_ value: Vehdata)
-
-    @objc(addVechicles:)
-    @NSManaged public func addToVechicles(_ values: NSSet)
-
-    @objc(removeVechicles:)
-    @NSManaged public func removeFromVechicles(_ values: NSSet)
-
-}
