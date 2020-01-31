@@ -8,9 +8,3 @@
 
 import Foundation
 
-
-class UserDetails{
-    
-    static let shared = UserDetails()
-    var userarray:[Userdata] = []
-}
