@@ -18,3 +18,9 @@ class ToolbarPickerView: UIPickerView {
 
 public private(set) var toolbar: UIToolbar?
 public weak var toolbarDelegate: ToolbarPickerViewDelegate?
+
+override init(frame: CGRect) {
+    super.init(frame: frame)
+    self.commonInit()
+}
+
